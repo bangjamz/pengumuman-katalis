@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp
+*.tmp
+*.temp
+
+# ZIP archives (don't push to git)
+*.zip
