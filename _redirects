@@ -1,0 +1,5 @@
+# Cloudflare Pages redirect rules
+# Format: [from] [to] [status]
+
+/admin    /admin.html    200
+/pengumuman    /index.html    200
