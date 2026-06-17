@@ -279,94 +279,123 @@
     .result-showcase { max-width: 560px; margin: 0 auto; }
 
     /* Result card LOLOS */
-    /* ── Result card LOLOS ── merah elegan, bukan hitam ── */
+    /* ── Result card LOLOS ── putih dengan header merah ── */
     .rc-lolos {
-      background: linear-gradient(160deg, #c20b03 0%, var(--red) 50%, #ff2d24 100%);
+      background: #ffffff;
       border-radius: 24px; overflow: hidden;
-      box-shadow: 0 20px 60px rgba(245,14,4,.35), 0 4px 16px rgba(0,0,0,.12);
+      box-shadow: 0 20px 60px rgba(0,0,0,.12), 0 4px 16px rgba(245,14,4,.08);
+      border: 1px solid #f0f0f0;
       position: relative;
     }
-    .rc-lolos::before {
-      content:''; position:absolute; top:-60px; right:-60px;
-      width:220px; height:220px; border-radius:50%;
-      background: rgba(255,255,255,.06); pointer-events:none;
+    html[data-theme='dark'] .rc-lolos {
+      background: #161616;
+      border-color: #2a2a2a;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 40px rgba(245,14,4,.15);
     }
     .rc-lolos-header {
-      background: rgba(0,0,0,.18); backdrop-filter: blur(8px);
-      padding: 18px 28px; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%);
+      padding: 20px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    html[data-theme='dark'] .rc-lolos-header {
+      background: linear-gradient(135deg, #8b0700 0%, #c20b03 100%);
+      box-shadow: 0 4px 20px rgba(245,14,4,.3);
     }
     .rc-lolos-header-text {
       font-family: var(--font-heading); font-size: 12px; font-weight: 700;
-      letter-spacing: .08em; color: rgba(255,255,255,.9);
+      letter-spacing: .06em; color: rgba(255,255,255,.95);
     }
     .rc-lolos-badge {
       background: var(--yellow); color: #111;
       font-family: var(--font-heading); font-size: 11px; font-weight: 900;
       letter-spacing: .06em; padding: 6px 16px; border-radius: var(--radius-pill);
     }
-    .rc-lolos-body { padding: 32px 28px; text-align: center; position: relative; z-index: 1; }
+    .rc-lolos-body { padding: 32px 28px; text-align: center; }
     .rc-avatar-win {
       width: 72px; height: 72px;
-      background: rgba(255,255,255,.15); border: 2px solid rgba(255,255,255,.3);
+      background: rgba(245,14,4,.08); border: 2px solid rgba(245,14,4,.2);
       border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
     }
-    .rc-avatar-win svg { width: 32px; height: 32px; color: var(--yellow); }
+    html[data-theme='dark'] .rc-avatar-win {
+      background: rgba(245,14,4,.15); border-color: rgba(245,14,4,.4);
+      box-shadow: 0 0 20px rgba(245,14,4,.25);
+    }
+    .rc-avatar-win svg { width: 32px; height: 32px; color: var(--red); }
+    html[data-theme='dark'] .rc-avatar-win svg { filter: drop-shadow(0 0 6px rgba(245,14,4,.7)); }
     .rc-status-lolos {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.3);
-      color: #fff; font-family: var(--font-heading); font-size: 11px; font-weight: 800;
+      background: rgba(245,14,4,.08); border: 1.5px solid rgba(245,14,4,.2);
+      color: var(--red); font-family: var(--font-heading); font-size: 11px; font-weight: 800;
       letter-spacing: .12em; padding: 7px 18px; border-radius: var(--radius-pill); margin-bottom: 16px;
     }
-    .rc-name { font-family: var(--font-display); font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 4px; text-shadow: 0 2px 8px rgba(0,0,0,.2); }
-    .rc-npm { font-size: 13px; color: rgba(255,255,255,.65); margin-bottom: 20px; }
-    .rc-msg { font-size: 14px; color: rgba(255,255,255,.88); line-height: 1.7; max-width: 400px; margin: 0 auto 24px; }
-    .rc-divider { height: 1px; background: rgba(255,255,255,.15); margin-bottom: 20px; }
+    html[data-theme='dark'] .rc-status-lolos {
+      background: rgba(245,14,4,.12); border-color: rgba(245,14,4,.35);
+      color: #ff6b6b;
+      text-shadow: 0 0 10px rgba(245,14,4,.6);
+    }
+    .rc-name { font-family: var(--font-display); font-size: 28px; font-weight: 900; color: #111; margin-bottom: 4px; }
+    html[data-theme='dark'] .rc-name { color: #ffffff; text-shadow: 0 0 20px rgba(255,255,255,.2); }
+    .rc-npm { font-size: 13px; color: #888; margin-bottom: 20px; }
+    html[data-theme='dark'] .rc-npm { color: #666; }
+    .rc-msg { font-size: 14px; color: #444; line-height: 1.7; max-width: 400px; margin: 0 auto 24px; }
+    html[data-theme='dark'] .rc-msg { color: #c0c0c0; }
+    .rc-divider { height: 1px; background: #f0f0f0; margin-bottom: 20px; }
+    html[data-theme='dark'] .rc-divider { background: #2a2a2a; }
 
-    /* ── Result card TIDAK LOLOS ── warm cream, bukan putih polos ── */
+    /* ── Result card TIDAK LOLOS ── putih clean dengan gold accent ── */
     .rc-tlls {
-      background: linear-gradient(160deg, #fffbf0 0%, #fff9e6 100%);
-      border: 2px solid #e8cc6a;
+      background: #ffffff;
+      border: 1px solid #f0f0f0;
       border-radius: 24px; overflow: hidden;
-      box-shadow: 0 12px 40px rgba(0,0,0,.10);
+      box-shadow: 0 12px 40px rgba(0,0,0,.08);
     }
     html[data-theme='dark'] .rc-tlls {
-      background: linear-gradient(160deg, #1e1a0e 0%, #221e0e 100%);
-      border-color: #5a4a10;
+      background: #161616;
+      border-color: #2a2a2a;
+      box-shadow: 0 12px 40px rgba(0,0,0,.5), 0 0 30px rgba(246,219,0,.08);
     }
-    .rc-tlls-top { height: 6px; background: linear-gradient(90deg, #e6b800 0%, var(--yellow) 50%, #ffd700 100%); }
+    .rc-tlls-top { height: 6px; background: linear-gradient(90deg, #c9a800 0%, var(--yellow) 50%, #ffe033 100%); }
     .rc-tlls-body { padding: 36px 32px; text-align: center; }
     .rc-avatar-tlls {
       width: 72px; height: 72px;
-      background: rgba(246,219,0,.25); border: 2px solid rgba(200,170,0,.5);
+      background: rgba(246,219,0,.12); border: 2px solid rgba(200,170,0,.3);
       border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
     }
+    html[data-theme='dark'] .rc-avatar-tlls {
+      background: rgba(246,219,0,.1); border-color: rgba(246,219,0,.25);
+      box-shadow: 0 0 20px rgba(246,219,0,.15);
+    }
     .rc-avatar-tlls svg { width: 32px; height: 32px; color: #b8860b; }
-    html[data-theme='dark'] .rc-avatar-tlls svg { color: var(--yellow); }
+    html[data-theme='dark'] .rc-avatar-tlls svg { color: var(--yellow); filter: drop-shadow(0 0 6px rgba(246,219,0,.5)); }
     .rc-result-label {
-      display: inline-block; background: rgba(246,219,0,.2); border: 1.5px solid rgba(200,170,0,.5);
+      display: inline-block; background: rgba(246,219,0,.15); border: 1.5px solid rgba(200,170,0,.35);
       color: #7a5c00; font-family: var(--font-heading); font-size: 10px; font-weight: 800;
       letter-spacing: .12em; text-transform: uppercase; padding: 5px 16px; border-radius: var(--radius-pill); margin-bottom: 14px;
     }
-    html[data-theme='dark'] .rc-result-label { color: #d4a800; }
-    .rc-name-tlls { font-family: var(--font-display); font-size: 26px; font-weight: 900; color: #3d2e00; margin-bottom: 4px; }
-    html[data-theme='dark'] .rc-name-tlls { color: #f0e080; }
-    .rc-npm-tlls { font-size: 13px; color: #7a6520; margin-bottom: 18px; }
-    html[data-theme='dark'] .rc-npm-tlls { color: #a89040; }
+    html[data-theme='dark'] .rc-result-label { color: #d4a800; background: rgba(246,219,0,.08); border-color: rgba(246,219,0,.2); }
+    .rc-name-tlls { font-family: var(--font-display); font-size: 26px; font-weight: 900; color: #111; margin-bottom: 4px; }
+    html[data-theme='dark'] .rc-name-tlls { color: #f0f0f0; text-shadow: 0 0 15px rgba(246,219,0,.15); }
+    .rc-npm-tlls { font-size: 13px; color: #888; margin-bottom: 18px; }
+    html[data-theme='dark'] .rc-npm-tlls { color: #555; }
     .rc-status-tlls-badge {
-      display: inline-block; background: linear-gradient(90deg, #6b5500 0%, #8a6e00 100%);
-      color: #fff; font-family: var(--font-heading); font-size: 13px; font-weight: 700;
+      display: inline-block;
+      background: #374151; color: #fff;
+      font-family: var(--font-heading); font-size: 13px; font-weight: 700;
       letter-spacing: .06em; padding: 10px 32px; border-radius: var(--radius-sm); margin-bottom: 24px;
     }
-    html[data-theme='dark'] .rc-status-tlls-badge { background: linear-gradient(90deg, #4a3d00 0%, #5c4a00 100%); }
-    .rc-tlls-msg { font-size: 15px; color: #4a3800; line-height: 1.8; margin-bottom: 20px; }
-    html[data-theme='dark'] .rc-tlls-msg { color: #d4bc70; }
-    .rc-tlls-note { background: rgba(246,219,0,.12); border: 1.5px solid rgba(200,170,0,.4); border-radius: var(--radius-md); padding: 16px 20px; }
-    .rc-tlls-note p { font-size: 13.5px; color: #5a4500; line-height: 1.65; }
-    html[data-theme='dark'] .rc-tlls-note p { color: #c8a840; }
+    html[data-theme='dark'] .rc-status-tlls-badge {
+      background: #2a2a2a; color: #e0e0e0;
+      box-shadow: 0 0 12px rgba(246,219,0,.1);
+    }
+    .rc-tlls-msg { font-size: 15px; color: #444; line-height: 1.8; margin-bottom: 20px; }
+    html[data-theme='dark'] .rc-tlls-msg { color: #b0b0b0; }
+    .rc-tlls-note { background: rgba(246,219,0,.08); border: 1.5px solid rgba(200,170,0,.25); border-radius: var(--radius-md); padding: 16px 20px; }
+    html[data-theme='dark'] .rc-tlls-note { background: rgba(246,219,0,.05); border-color: rgba(246,219,0,.15); }
+    .rc-tlls-note p { font-size: 13.5px; color: #555; line-height: 1.65; }
+    html[data-theme='dark'] .rc-tlls-note p { color: #999; }
     .rc-tlls-note-icon { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
     .rc-tlls-note-icon svg { width: 16px; height: 16px; color: #b8860b; flex-shrink: 0; }
-    html[data-theme='dark'] .rc-tlls-note-icon svg { color: var(--yellow); }
+    html[data-theme='dark'] .rc-tlls-note-icon svg { color: var(--yellow); filter: drop-shadow(0 0 4px rgba(246,219,0,.4)); }
     .rc-tlls-note-icon span { font-family: var(--font-heading); font-size: 11px; font-weight: 800; letter-spacing: .08em; color: #7a5c00; }
     html[data-theme='dark'] .rc-tlls-note-icon span { color: #d4a800; }
 
