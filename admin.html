@@ -1139,7 +1139,7 @@ function renderImportPreview(headers, rows) {
 }
 
 function renderColMapper(headers) {
-  const fields = [
+  var fields = [
     {key:'npm',label:'NPM *'},
     {key:'nama_lengkap',label:'Nama Lengkap *'},
     {key:'angkatan',label:'Angkatan'},
@@ -1149,18 +1149,23 @@ function renderColMapper(headers) {
     {key:'tanggal_wawancara',label:'Tanggal Wawancara'},
     {key:'catatan',label:'Catatan'}
   ];
-  const opts = ['(Abaikan)', ...headers].map(h=>`<option value="${h}">${h}</option>`).join('');
-  document.getElementById('col-mapper').innerHTML = fields.map(f=>`
-    <div class="form-group">
-      <label>${f.label}</label>
-      <select class="form-select" id="map-${f.key}">
-        ${opts.replace(`value="${headers.find(h=>h.toLowerCase().includes(f.key.split('_')[0].toLowerCase()))||'(Abaikan')}"`,`value="${headers.find(h=>h.toLowerCase().includes(f.key.split('_')[0].toLowerCase()))||'(Abaikan')}" selected`)}
-      </select>
-    </div>`).join('');
-  // Auto-map
-  fields.forEach(f=>{
-    const match = headers.find(h=>h.toLowerCase().replace(/[\s_]/g,'')===f.key.toLowerCase().replace(/[\s_]/g,''));
-    if (match) { const sel=document.getElementById('map-'+f.key); if(sel) sel.value=match; }
+  // Build options (no nested template literals)
+  var opts = '<option value="(Abaikan)">(Abaikan)</option>';
+  headers.forEach(function(h) { opts += '<option value="' + h + '">' + h + '</option>'; });
+  // Render mapper UI
+  var html = '';
+  fields.forEach(function(f) {
+    html += '<div class="form-group"><label>' + f.label + '</label>' +
+      '<select class="form-select" id="map-' + f.key + '">' + opts + '</select></div>';
+  });
+  document.getElementById('col-mapper').innerHTML = html;
+  // Auto-map columns
+  fields.forEach(function(f) {
+    var root = f.key.split('_')[0].toLowerCase();
+    var norm = f.key.toLowerCase().replace(/[\s_]/g,'');
+    var match = headers.find(function(h) { return h.toLowerCase().replace(/[\s_]/g,'') === norm; })
+              || headers.find(function(h) { return h.toLowerCase().includes(root); });
+    if (match) { var sel = document.getElementById('map-' + f.key); if (sel) sel.value = match; }
   });
 }
 
