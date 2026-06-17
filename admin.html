@@ -1211,12 +1211,86 @@ function resetImport() {
 }
 
 function downloadTemplate() {
-  const headers = 'npm,nama_lengkap,angkatan,email,telepon,status,tanggal_wawancara,catatan';
-  const sample = '2406381001,Budi Santoso,2024,budi@ui.ac.id,081234567890,LOLOS,2026-05-20,';
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([headers+'\n'+sample],{type:'text/csv'}));
-  a.download = 'template_katalis2026.csv';
-  a.click();
+  // Baris header
+  var headers = ['npm','nama_lengkap','angkatan','email','telepon','status','tanggal_wawancara','catatan'];
+
+  // Data contoh (5 baris)
+  var samples = [
+    ['2406381001','Budi Santoso','2024','budi.santoso@ui.ac.id','081234567890','LOLOS','2026-05-20',''],
+    ['2406381002','Siti Rahayu','2024','siti.rahayu@ui.ac.id','082345678901','LOLOS','2026-05-21','Hadir tepat waktu'],
+    ['2406381003','Ahmad Fauzi','2024','ahmad.fauzi@ui.ac.id','083456789012','TIDAK_LOLOS','2026-05-20',''],
+    ['2406381004','Dewi Lestari','2023','dewi.lestari@ui.ac.id','084567890123','PENDING','','Belum wawancara'],
+    ['2406381005','Rizky Pratama','2024','rizky.pratama@ui.ac.id','085678901234','LOLOS','2026-05-22','']
+  ];
+
+  // Coba buat Excel dengan SheetJS jika tersedia
+  if (typeof XLSX !== 'undefined') {
+    var wsData = [headers].concat(samples);
+    var ws = XLSX.utils.aoa_to_sheet(wsData);
+
+    // Lebar kolom (karakter)
+    ws['!cols'] = [
+      {wch:14}, // npm
+      {wch:24}, // nama_lengkap
+      {wch:10}, // angkatan
+      {wch:28}, // email
+      {wch:16}, // telepon
+      {wch:14}, // status
+      {wch:20}, // tanggal_wawancara
+      {wch:24}  // catatan
+    ];
+
+    // Style header (merah + teks putih + bold) — pakai cell style jika tersedia
+    var headerCols = ['A','B','C','D','E','F','G','H'];
+    headerCols.forEach(function(col) {
+      var cellRef = col + '1';
+      if (!ws[cellRef]) return;
+      ws[cellRef].s = {
+        font: { bold: true, color: { rgb: 'FFFFFF' } },
+        fill: { fgColor: { rgb: 'C20B03' } },
+        alignment: { horizontal: 'center', vertical: 'center' }
+      };
+    });
+
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Template Katalis 2026');
+
+    // Sheet ke-2: petunjuk pengisian
+    var wsGuide = XLSX.utils.aoa_to_sheet([
+      ['PETUNJUK PENGISIAN TEMPLATE KATALIS 2026'],
+      [''],
+      ['Kolom','Keterangan','Contoh','Wajib?'],
+      ['npm','Nomor Pokok Mahasiswa — angka saja','2406381001','Ya'],
+      ['nama_lengkap','Nama lengkap sesuai KTM','Budi Santoso','Ya'],
+      ['angkatan','Tahun angkatan mahasiswa','2024','Tidak'],
+      ['email','Alamat email aktif','budi@ui.ac.id','Tidak'],
+      ['telepon','Nomor HP (awali 08 atau 62)','081234567890','Tidak'],
+      ['status','Status kelulusan — pilih salah satu: LOLOS / TIDAK_LOLOS / PENDING','LOLOS','Ya'],
+      ['tanggal_wawancara','Format: YYYY-MM-DD','2026-05-20','Tidak'],
+      ['catatan','Catatan tambahan (opsional)','Hadir tepat waktu','Tidak'],
+      [''],
+      ['CATATAN PENTING:'],
+      ['- Baris header (baris ke-1) JANGAN dihapus'],
+      ['- Hapus baris contoh (baris 2-6) dan ganti dengan data peserta sesungguhnya'],
+      ['- Kolom status harus persis: LOLOS, TIDAK_LOLOS, atau PENDING (huruf kapital semua)'],
+      ['- Data duplikat (NPM sama) akan dilewati secara otomatis saat import'],
+    ]);
+    wsGuide['!cols'] = [{wch:22},{wch:48},{wch:16},{wch:8}];
+    XLSX.utils.book_append_sheet(wb, wsGuide, 'Petunjuk');
+
+    XLSX.writeFile(wb, 'template_katalis2026.xlsx');
+    showToast('Template Excel berhasil diunduh!', 'success');
+  } else {
+    // Fallback: CSV biasa
+    var rows = [headers.join(',')];
+    samples.forEach(function(r) { rows.push(r.join(',')); });
+    var blob = new Blob([rows.join('\n')], {type:'text/csv'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'template_katalis2026.csv';
+    a.click();
+    showToast('Template CSV berhasil diunduh!', 'success');
+  }
 }
 
 /* ── SETTINGS ────────────────────────────── */
